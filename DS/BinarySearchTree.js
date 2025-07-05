@@ -118,26 +118,46 @@ class BinarySearchTree {
     isBalanced(){
         return this.checkBalanced() !== -1;
     }
+
+    LCA(p, q){
+        if(!this.contains(p) || !this.contains(q)) return null;
+        let node = this.root;
+        while(node){
+            if((p < node.value) && (q < node.value)){
+                node = node.left;
+            }else if((p > node.value) && (q > node.value)){
+                node = node.right;
+            }else{
+                return node;
+            }
+        }
+        return null;
+    }
+
+    LCARecursive(p, q){
+        if (!this.contains(p) || !this.contains(q)) {
+            return null; // One or both values not present
+        }
+        return this.#LCAHelper(p, q);
+    }
+
+    #LCAHelper(p, q, node = this.root){
+        if(node === null) return null;
+        if((p < node.value) && (q < node.value)){
+            return this.#LCAHelper(p, q, node.left);
+        }
+        if((p > node.value) && (q > node.value)){
+            return this.#LCAHelper(p, q, node.right);
+        }
+        return node; //LCA
+    }
+    
 }
 
 export default BinarySearchTree;
 
-let bst = new BinarySearchTree(50);
-bst.insert(30);
-bst.insert(70);
-bst.insert(20);
-bst.insert(40);
-bst.insert(60);
-bst.insert(80);
+let bst = new BinarySearchTree(20);
+[10, 30, 5, 15, 25, 35].forEach(val => bst.insert(val));
 
-
-// bst.delete(20);  // leaf
-// bst.printTree();
-
-// bst.delete(30);  // one child
-// bst.printTree();
-
-bst.printTree();
-bst.delete(50);  // two children
-bst.printTree();
-
+let lca = bst.LCARecursive(5, 15);
+console.log("LCA of 5 and 15:", lca?.value); // Should be 10
