@@ -1,6 +1,6 @@
 import Node from "./Node.js"
 
-class Stack {
+class StackLL {
 
     constructor(){
         this.top = null;
@@ -40,10 +40,10 @@ class Stack {
 
 }
 
-export default Stack;
+export default StackLL;
 
 
-const stack = new Stack();
+const stack = new StackLL();
 stack.push(10);
 stack.push(20);
 console.log(stack.peek());  // 20
