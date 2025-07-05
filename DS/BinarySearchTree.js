@@ -92,6 +92,32 @@ class BinarySearchTree {
         this.printTree(node.left, indent + "   ", "left");
     }
 
+    isValidBST(node = this.root, min = -Infinity, max = Infinity){
+        if(node === null) return true;
+        if((node.value <= min) || (node.value >= max)) return false;
+        return this.isValidBST(node.left, min, node.value) && this.isValidBST(node.right, node.value, max);
+    }
+
+    height(node = this.root){
+        if(node === null) return -1;
+        return 1 + Math.max(this.height(node.left), this.height(node.right));
+    }
+
+    checkBalanced(node = this.root){
+        if(node === null) return 0;
+        let left = this.checkBalanced(node.left);
+        if(left === -1) return -1;
+        let right = this.checkBalanced(node.right);
+        if(right === -1) return -1;
+        if(Math.abs(left - right) > 1){
+            return -1;
+        }
+        return 1 + Math.max(left, right);
+    }
+
+    isBalanced(){
+        return this.checkBalanced() !== -1;
+    }
 }
 
 export default BinarySearchTree;
