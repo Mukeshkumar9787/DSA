@@ -151,6 +151,53 @@ class BinarySearchTree {
         }
         return node; //LCA
     }
+
+    rangeSum(low, high){
+        return this.#rangeSumHelper(this.root, low, high);
+    }
+
+    #rangeSumHelper(node, low, high){
+        if(node === null) return 0;
+
+        // If node value is less than low, skip the entire left tree 
+        if(node.value < low) {
+            return this.#rangeSumHelper(node.right, low, high);
+        }
+
+        // If node value is greater than high, skip the entire right tree
+        if(node.value > high){
+            return this.#rangeSumHelper(node.left, low, high);
+        }
+
+        return node.value + this.#rangeSumHelper(node.left, low, high) + this.#rangeSumHelper(node.right, low, high);
+    }
+
+    closestValue(targetValue){
+        return this.#closestValueHelper(this.root, targetValue);
+    }
+
+    #closestValueHelper(node,targetValue,closest=null){
+        if(node === null) return closest;
+
+        if(node.value === targetValue) return node.value;
+        
+        if(closest === null){
+            closest = node.value;
+        }else{
+            let currentDiff = Math.abs(node.value - targetValue);
+            let closestDiff = Math.abs(closest - targetValue );
+            if(currentDiff < closestDiff){
+                closest = node.value;
+            };
+        }
+
+        if(node.value < targetValue){
+            closest = this.#closestValueHelper(node.right, targetValue, closest);
+        }else{
+            closest = this.#closestValueHelper(node.left, targetValue, closest);
+        }
+        return closest;
+    }   
     
 }
 
