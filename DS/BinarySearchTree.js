@@ -2,7 +2,7 @@ import TreeNode from "./TreeNode.js";
 
 class BinarySearchTree {
     constructor(value){
-        this.root = new TreeNode(value);
+        this.root = value ? new TreeNode(value) : null;
     }
 
     insert(value){
@@ -198,13 +198,55 @@ class BinarySearchTree {
         }
         return closest;
     }   
+
+    KthSmallestValue(k){
+        return this.#KthSmallestValueHelper(this.root, k);
+    }
     
+    #KthSmallestValueHelper(node,k, counter={count: 0}){
+        if(node === null) return null;
+        let leftValue = this.#KthSmallestValueHelper(node.left,k, counter);
+        if(leftValue !== null) return leftValue
+        counter.count++;
+        if(counter.count === k) return node.value;
+        let rightValue = this.#KthSmallestValueHelper(node.right,k, counter);
+        if(rightValue !== null) return rightValue;
+        return null;
+    }
 }
 
 export default BinarySearchTree;
 
-let bst = new BinarySearchTree(20);
-[10, 30, 5, 15, 25, 35].forEach(val => bst.insert(val));
+// let bst = new BinarySearchTree(20);
+// [10, 30, 5, 15, 25, 35].forEach(val => bst.insert(val));
 
-let lca = bst.LCARecursive(5, 15);
-console.log("LCA of 5 and 15:", lca?.value); // Should be 10
+// let lca = bst.LCARecursive(5, 15);
+// console.log("LCA of 5 and 15:", lca?.value); // Should be 10
+
+const bst = new BinarySearchTree();
+[5,3, 8, 2, 4, 10, 1].forEach(v => bst.insert(v));
+
+bst.printTree();
+
+// Test Case 1: k = 1 (smallest)
+console.log(bst.KthSmallestValue(1)); // Expected: 1
+
+// Test Case 2: k = 3
+console.log(bst.KthSmallestValue(3)); // Expected: 3
+
+// Test Case 3: k = 5
+console.log(bst.KthSmallestValue(5)); // Expected: 5
+
+// Test Case 4: k = 7 (largest)
+console.log(bst.KthSmallestValue(7)); // Expected: 10
+
+// Test Case 5: k = 8 (out of bounds)
+console.log(bst.KthSmallestValue(8)); // Expected: null
+
+// Test Case 6: k = 0 (invalid input)
+console.log(bst.KthSmallestValue(0)); // Expected: null
+
+// Test Case 7: Empty BST
+const emptyBST = new BinarySearchTree(null);
+console.log(emptyBST.KthSmallestValue(1)); // Expected: null
+
