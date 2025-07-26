@@ -213,6 +213,21 @@ class BinarySearchTree {
         if(rightValue !== null) return rightValue;
         return null;
     }
+
+    KthLargestValue(k){
+        return this.#KthLargestValueHelper(this.root, k);
+    }
+    
+    #KthLargestValueHelper(node,k, counter={count: 0}){
+        if(node === null) return null;
+        let rightValue = this.#KthLargestValueHelper(node.right,k, counter);
+        if(rightValue !== null) return rightValue;
+        counter.count++;
+        if(counter.count === k) return node.value;
+        let leftValue = this.#KthLargestValueHelper(node.left,k, counter);
+        if(leftValue !== null) return leftValue
+        return null;
+    }
 }
 
 export default BinarySearchTree;
