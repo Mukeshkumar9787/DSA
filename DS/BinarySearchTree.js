@@ -286,6 +286,20 @@ class BinarySearchTree {
         }
         return successor;
     }
+
+    lowestCommonAncestor(p, q){
+        let current = this.root;
+        while(current){
+            if((p < current.value) && (q < current.value)){
+                current = current.left;
+            }else if(p > current.value && q > current.value){
+                current = current.right;
+            }else{
+                return current;
+            }            
+        }
+        return null;
+    }
 }
 
 export default BinarySearchTree;
