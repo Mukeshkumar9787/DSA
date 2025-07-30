@@ -300,6 +300,29 @@ class BinarySearchTree {
         }
         return null;
     }
+
+    inOrderValuesArr(node=this.root, result = []){
+        if(node == null) return result;
+        this.inOrderValuesArr(node.left, result);
+        result.push(node.value);
+        this.inOrderValuesArr(node.right, result);
+        return result;
+    }
+
+    buildTreeFromSortedArr(sortedArr, l, r){
+        if(l > r) return null;
+        let mid = Math.floor((l + r) / 2);
+        let node = new TreeNode(sortedArr[mid]);
+        node.left = this.buildTreeFromSortedArr(sortedArr, l, mid - 1);
+        node.right = this.buildTreeFromSortedArr(sortedArr, mid + 1, r);
+        return node;
+    }   
+
+    balance(){
+        let sortedValues = this.inOrderValuesArr();
+        this.root = this.buildTreeFromSortedArr(sortedValues, 0, sortedValues.length - 1);
+        return this.root;
+    }
 }
 
 export default BinarySearchTree;
