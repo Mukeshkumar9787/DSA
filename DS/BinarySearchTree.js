@@ -290,69 +290,6 @@ class BinarySearchTree {
 
 export default BinarySearchTree;
 
-const tree = new BinarySearchTree();
-
-tree.insert(15);
-tree.insert(10);
-tree.insert(20);
-tree.insert(8);
-tree.insert(12);
-tree.insert(25);
-
-// Exact match
-console.log(tree.ceil(12)); // 12
-
-// Between 10 and 12
-console.log(tree.ceil(11)); // 12
-
-// Between 12 and 15
-console.log(tree.ceil(14)); // 15
-
-// Exact match
-console.log(tree.ceil(15)); // 15
-
-// Between 15 and 20
-console.log(tree.ceil(16)); // 20
-
-// Between 20 and 25
-console.log(tree.ceil(21)); // 25
-
-// Exact match
-console.log(tree.ceil(25)); // 25
-
-// Greater than all nodes
-console.log(tree.ceil(26)); // null
-
-// Smaller than all nodes
-console.log(tree.ceil(5)); // 8
-
-
-// Exact match
-console.log(tree.floor(12)); // 12
-
-// Between 10 and 12
-console.log(tree.floor(11)); // 10
-
-// Between 12 and 15
-console.log(tree.floor(14)); // 12
-
-// Exact match
-console.log(tree.floor(15)); // 15
-
-// Between 15 and 20
-console.log(tree.floor(16)); // 15
-
-// Between 20 and 25
-console.log(tree.floor(21)); // 20
-
-// Exact match
-console.log(tree.floor(25)); // 25
-
-// Greater than all nodes
-console.log(tree.floor(30)); // 25
-
-// Smaller than all nodes
-console.log(tree.floor(5)); // null
 
 
 
