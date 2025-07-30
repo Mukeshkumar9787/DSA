@@ -272,6 +272,20 @@ class BinarySearchTree {
         }
         return potentialCeil.value;
     }
+
+    inOrderSuccessor(targetValue){
+        let successor = null;
+        let current = this.root;
+        while(current !== null){
+            if(targetValue < current.value){
+                successor=current.value;
+                current = current.left;
+            }else{
+                current = current.right;
+            }
+        }
+        return successor;
+    }
 }
 
 export default BinarySearchTree;
